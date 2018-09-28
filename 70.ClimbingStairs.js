@@ -1,3 +1,4 @@
+//DP Approach O(n) time and space complexity
 var climbStairs = function(n) {
     var dp = new Array(n + 1);
     dp[0] = 1;
@@ -22,5 +23,36 @@ n = 4 --> [4, 3, 2, 1, 0], [4, 3, 2, 0], [4, 3, 1, 0], [4, 2, 0], [4, 2, 1, 0];
 Notice that [4| 3, 2, 1, 0], [4| 3, 2, 0], [4| 3, 1, 0], the parts [3, 2, 1, 0], [3, 2, 0], [3, 1, 0] are the same for when n = 3;
 And [4| 2, 0], [4| 2, 1, 0], same for when n = 2
 ==> numOfWays(4) = numsOfWays(3) + numsOfWays(2)
-
 */
+
+//Iproved Space complexity to O(1)
+
+var climbStairsSpace = function(n) {
+    var first = 1;
+    var second = 1;
+    for (var i = 2; i < n + 1; i++) {
+        var third = first + second;
+        var temp = second;
+        second = third;
+        first = temp;
+    }
+    return second;
+}
+
+console.log(climbStairsSpace(4))
+
+
+//Recursion with memoization but this is O(2^n) not good for large n
+var climbStairsRecursion = function(n) {
+    var memo = {};
+    if (n === 0 || n === 1) {
+        return 1;
+    } else if (memo[n] !== undefined) {
+        return memo[n];
+    } else {
+        memo[n] = climbStairsRecursion(n - 1) + climbStairsRecursion(n - 2);
+    }
+    return memo[n];
+}
+
+console.log(climbStairsRecursion(4));

@@ -1,18 +1,19 @@
 var compress = function(chars) {
     var pointer1 = 0;
     var result = [];
-    while (pointer1 < chars.length) {
-        var pointer2 = pointer1 + 1;
+    var counter = 0
+    while (counter < chars.length) {
         var count = 1;
-        while (chars[pointer2] === chars[pointer2]) {
+        while (chars[1] === chars[0]) {
             count++;
-            pointer2++;
+            chars.shift();
+            counter++;
         }
         result.push(chars[pointer1]);
         result.push(count + "");
-        pointer1 = pointer2;
+        count = 1;
     }
-    //console.log(result)
+    console.log(chars);
     return result.length
 };
 

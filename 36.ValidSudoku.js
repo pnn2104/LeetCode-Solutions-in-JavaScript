@@ -1,6 +1,6 @@
 //still need to add functionality to check if an input board is valid. Otherwise, this solution works assuming 
 //all input board havent violated the rules.
-function validSudoku(board) {
+function sudokuSolve(board) {
     //find an empty cell
     var emptyCell = findEmptyCell(board);
 
@@ -13,7 +13,7 @@ function validSudoku(board) {
     for (let num = 1; num < 10; num++) {
         if (checkRow(num, row, board) && checkCol(num, col, board) && checkSubSquare(num, row, col, board)) {
             board[row][col] = num + "";
-            if (validSudoku(board)) { //if no more empty cell is found
+            if (sudokuSolve(board)) { //if no more empty cell is found
                 return true;
             } 
             board[row][col] = "."; //reset
@@ -63,6 +63,7 @@ function checkSubSquare(num, row, col, board) { //check if num is a valid num in
     return true;
 }
 
+
 var testBoard =[[".",".",".","7",".",".","3",".","1"],
                 ["3",".",".","9",".",".",".",".","."],
                 [".","4",".","3","1",".","2",".","."],
@@ -73,4 +74,14 @@ var testBoard =[[".",".",".","7",".",".","3",".","1"],
                 [".",".",".",".",".","9",".",".","8"],
                 ["8",".","5",".",".","4",".",".","."]]
 
-console.log(validSudoku(testBoard));
+var testBoard2 = [[".","8","7","6","5","4","3","2","1"],
+                  ["2",".",".",".",".",".",".",".","."],
+                  ["3",".",".",".",".",".",".",".","."],
+                  ["4",".",".",".",".",".",".",".","."],
+                  ["5",".",".",".",".",".",".",".","."],
+                  ["6",".",".",".",".",".",".",".","."],
+                  ["7",".",".",".",".",".",".",".","."],
+                  ["8",".",".",".",".",".",".",".","."],
+                  ["9",".",".",".",".",".",".",".","."]]
+
+console.log(validSudoku(validSudoku(testBoard)));

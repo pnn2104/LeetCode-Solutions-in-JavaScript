@@ -1,3 +1,5 @@
+//still need to add functionality to check if an input board is valid. Otherwise, this solution works assuming 
+//all input board havent violated the rules.
 function validSudoku(board) {
     //find an empty cell
     var emptyCell = findEmptyCell(board);
@@ -24,8 +26,9 @@ function validSudoku(board) {
 function findEmptyCell(board) { //fund empty cell in the board
     for (let row = 0; row < 9; row++) {
         for (let col = 0; col < 9; col++) {
-            if (board[row][col] === ".");
-            return [row, col];
+            if (board[row][col] === ".") {
+                return [row, col];
+            }
         }
     }
     return null;

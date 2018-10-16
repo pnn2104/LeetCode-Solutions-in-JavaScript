@@ -1,0 +1,3 @@
+function searchInRotatedArray(arr, num) {
+    
+}

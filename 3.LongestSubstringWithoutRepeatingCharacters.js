@@ -2,28 +2,26 @@ var slidingWindow = function(s) {
     //if (s.length === 1) return 1;
     let maxLen = 0;
     let hash = {};
-    var headIdx = 0;
-    for (var tailIdx = 0; tailIdx < s.length; tailIdx++) { 
+    let headIdx = 0;
+    for (let tailIdx = 0; tailIdx < s.length; tailIdx++) { 
         const tailChar = s[tailIdx];
-        let newLen = 0;
         if (hash[tailChar] !== undefined) {
-            newLen = tailIdx - headIdx - 1;
-            headIdx = hash[tailChar] + 1;
-            delete hash[tailChar];
-            console.log("hash delete: ", hash, "newLen: ", newLen);
-        } else if (hash[tailChar] === undefined) {
-            hash[tailChar] = tailIdx;
-            newLen += 1;
-            console.log("hash add: ", hash, "newLen: ", newLen)
-        }
-        maxLen = Math.max(maxLen, newLen);
+            headIdx = Math.max(headIdx, hash[tailChar] + 1);
+        } 
+        hash[tailChar] = tailIdx;
+        maxLen = Math.max(maxLen, tailIdx - headIdx + 1);   
     }
-    
     return maxLen;
 }
 
+var test = "aaaaaaaa";
+console.log(slidingWindow(test));
 
-//this approach will take O(N^2) at worst
+
+
+
+
+//this  brute force approach will take O(N^2) at worst
 var lengthOfLongestSubstring = function(s) {
     let maxLen = 0;
     for (let i = 0; i < s.length; i++) {
@@ -45,8 +43,8 @@ function helper (s, startIndex) {
     return count;
 }
 
-var test = "abba";
-console.log(slidingWindow(test));
+//var test = "abba";
+//console.log(slidingWindow(test));
 
 /*
 "abcabcbb"

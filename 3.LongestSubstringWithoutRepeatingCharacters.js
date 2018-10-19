@@ -1,10 +1,34 @@
+var slidingWindow = function(s) {
+    //if (s.length === 1) return 1;
+    let maxLen = 0;
+    let hash = {};
+    var headIdx = 0;
+    for (var tailIdx = 0; tailIdx < s.length; tailIdx++) { 
+        const tailChar = s[tailIdx];
+        let newLen = 0;
+        if (hash[tailChar] !== undefined) {
+            newLen = tailIdx - headIdx - 1;
+            headIdx = hash[tailChar] + 1;
+            delete hash[tailChar];
+            console.log("hash delete: ", hash, "newLen: ", newLen);
+        } else if (hash[tailChar] === undefined) {
+            hash[tailChar] = tailIdx;
+            newLen += 1;
+            console.log("hash add: ", hash, "newLen: ", newLen)
+        }
+        maxLen = Math.max(maxLen, newLen);
+    }
+    
+    return maxLen;
+}
+
+
+//this approach will take O(N^2) at worst
 var lengthOfLongestSubstring = function(s) {
     let maxLen = 0;
     for (let i = 0; i < s.length; i++) {
         const newLen = helper(s, i);
-        if (newLen > maxLen) {
-            maxLen = newLen;
-        }
+        maxLen = Math.max(newLen, maxLen)
     }    
     return maxLen;
 };
@@ -21,8 +45,8 @@ function helper (s, startIndex) {
     return count;
 }
 
-var test = "pwwkew";
-console.log(lengthOfLongestSubstring(test));
+var test = "abba";
+console.log(slidingWindow(test));
 
 /*
 "abcabcbb"

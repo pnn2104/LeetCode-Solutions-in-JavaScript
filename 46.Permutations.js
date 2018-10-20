@@ -1,7 +1,8 @@
 var permute = function(nums) {
     var result = [];
+    var seen = {};
     if (nums.length <= 1) {
-        return new Array(nums);
+        return [nums];
     }  
     var allNumbersExceptLast = nums.slice(0, -1);
     var lastNumber = [nums[nums.length - 1]];
@@ -11,13 +12,15 @@ var permute = function(nums) {
     permutationsExceptLast.forEach((combination) => {
         for (let position = 0; position <= combination.length; position++) {
             var newPermutation = combination.slice(0, position).concat(lastNumber).concat(combination.slice(position));
-            result.push(newPermutation);
+            if (seen[newPermutation.join("")] === undefined) {
+                result.push(newPermutation)
+            }
+            seen[newPermutation.join("")] = true;
         }
     })
-
     return result;
 };
 
-var input = [1, 2, 3];
+var input = [1, 1, 2];
 
 console.log(permute(input));

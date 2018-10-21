@@ -1,24 +1,13 @@
+//O(MxN) time complexity, O(1) space
 var minPathSum = function(grid) {
-    // var dp = new Array(grid.length);
-    // dp.forEach(function(row) {
-    //     if (row === undefined) {
-    //         row = [];
-    //     }
-    // }) 
-    // dp[0][0] = grid[0][0];
-    
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[0].length; j++) {
             if (i === 0 && j === 0) continue
-            
-                const left = j - 1 >= 0 ? grid[i][j - 1] : Infinity;
-                const up = i - 1 >= 0 ? grid[i - 1][j] : Infinity;
-                console.log(i, j, left, up);
-                grid[i][j] = Math.min(left + grid[i][j], up + grid[i][j]);
-                console.log(grid);
+            const left = j - 1 >= 0 ? grid[i][j - 1] : Infinity;
+            const up = i - 1 >= 0 ? grid[i - 1][j] : Infinity;    
+            grid[i][j] = Math.min(left + grid[i][j], up + grid[i][j]);
         }
     }
-
     return grid[grid.length - 1][grid[0].length - 1];
 };
 

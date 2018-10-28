@@ -6,6 +6,7 @@ function TreeNode(val) {
 
 
 var hasPathSum = function(root, sum) {
+    if (!root) return false;
     let stack = [];
     stack.push([root, root.val]);
     
@@ -32,6 +33,45 @@ var hasPathSum = function(root, sum) {
     return false;
 };
 
+var hasPathSumRecursion = function(root, sum) {
+    //console.log("sum: ", sum)
+    if (!root) {
+        return false;
+    }
+    if (!root.left && !root.right) {
+        return root.val === sum;
+    }
+
+    return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+}
+
+//one other way to do this
+var hasPathSumRecursion1 = function(root, sum) {
+    if (!root) {
+        return false;
+    }
+    var has = false;
+    const recurse = function(node, total) {
+        
+        if (!node.right && !node.left) {
+            console.log("total: ", total);
+            if (total === sum) {
+                has = true;
+                return 
+            }
+        }
+
+        if (node.right) {
+            recurse(node.right, total + node.right.val);
+        }
+        if (node.left) {
+            recurse(node.left, total + node.left.val);
+        }
+    }
+
+    recurse(root, root.val);
+    return has;
+}
 
 var test = new TreeNode(5);
 test.left = new TreeNode(4);
@@ -43,4 +83,15 @@ test.right.left = new TreeNode(13);
 test.right.right = new TreeNode(4);
 test.right.right.right = new TreeNode(1);
 
-console.log(hasPathSum(test, 22));
+console.log(hasPathSumRecursion(test, 22));
+
+
+/* 
+      5
+     / \
+    4   8
+   /   / \
+  11  13  4
+ /  \      \
+7    2      1
+*/

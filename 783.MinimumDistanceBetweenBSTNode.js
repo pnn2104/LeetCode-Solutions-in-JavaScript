@@ -4,6 +4,7 @@ function TreeNode(val) {
     this.right = null;
 }
 
+//DFS iterative solution
 var minDiffInBST = function(root) {
     let stack = [];
     stack.push({
@@ -15,13 +16,9 @@ var minDiffInBST = function(root) {
 
     while (stack.length > 0) {
         var currentNode = stack.pop();
-        console.log(currentNode)
         let diff1 = Math.abs(currentNode.node.val - currentNode.lowerBound);
-        console.log("diff1: ", diff1);
         let diff2 = Math.abs(currentNode.node.val - currentNode.upperBound);
-        console.log("diff2: ", diff2);
         minDiff = minDiff === 0 ? diff1: Math.min(minDiff, diff1);
-        console.log("minDIff: ", minDiff);
         minDiff = Math.min(diff2, minDiff);
         if (currentNode.node.left) {
             stack.push({
@@ -43,13 +40,40 @@ var minDiffInBST = function(root) {
 };
 
 
+
+var minDiffInBSTRecursive = function(root) {
+    var globalMin = 0
+
+    const dfs = function(node, lowerBound, upperBound) {
+        let diff1 = Math.abs(node.val - lowerBound);
+        let diff2 = Math.abs(node.val - upperBound);
+        globalMin = globalMin === 0 ? diff1 : Math.min(globalMin, diff1);
+        globalMin = Math.min(globalMin, diff2);
+
+        if (!node) {
+            return 
+        }
+
+        if (node.left) {
+            dfs(node.left, lowerBound, node.val);
+        }
+
+        if (node.right) {
+            dfs(node.right, node.val, upperBound);
+        }
+    }
+
+    dfs(root, root.val, root.val);
+    return globalMin;
+}
+
 var test = new TreeNode(90);
 test.left = new TreeNode(69);
 test.left.right = new TreeNode(89);
 test.left.left = new TreeNode(49);
 test.left.left.right = new TreeNode(52);
 
-console.log(minDiffInBST(test))
+console.log(minDiffInBSTRecursive(test))
 /*
         4
       /  \

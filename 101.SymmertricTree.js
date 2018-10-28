@@ -42,15 +42,38 @@ var isSymmetric = function(root) {
     return true;
 }
 
+
+var isSymmetricRecursion = function(root) {
+    if (!root) {
+        return true;
+    }
+    const isMirror = function(p, q) {
+        if (!p && !q) {
+            return true;
+        } else if (p.val !== q.val) {
+            return false;
+        } else if ((p.left && !q.right) ||
+                   (p.right && !q.left) ||
+                   (q.left && !p.right) ||
+                   (q.right && !p.left)) {
+            return false;
+        }
+
+        return isMirror(p.left, q.right) && isMirror(p.right, q.left);
+    }
+
+    return isMirror(root, root);
+}
+
 var test = new TreeNode(1);
 test.left = new TreeNode(2);
 test.right = new TreeNode(2);
 test.left.left = new TreeNode(3);
 test.left.right = new TreeNode(4);
 test.right.left = new TreeNode(4);
-//test.right.right = new TreeNode(3);
+test.right.right = new TreeNode(3);
 
-console.log(isSymmetric(test));
+console.log(isSymmetricRecursion(test));
 
 /*
      1

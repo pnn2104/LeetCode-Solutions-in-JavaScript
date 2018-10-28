@@ -42,16 +42,30 @@ var isSameTree = function(p, q) {
     return true;
 };
 
-
+var isSameTreeRecurse = function(p, q) {
+    if (!p && !q) {
+        return true;
+    } else if (!p && q) {
+        return false;
+    } else if (!q && p) {
+        return false;
+    } else if (p && q) {
+        if (p.val !== q.val) {
+            return false;
+        }
+    }
+    
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+}
 
 
 let testP = new TreeNode(1);
-testP.left = new TreeNode(1);
-//testP.right = new TreeNode(1)
+testP.left = new TreeNode(2);
+testP.right = new TreeNode(1)
 
 let testQ = new TreeNode(1);
-//testQ.left = new TreeNode(2);
+testQ.left = new TreeNode(2);
 testQ.right = new TreeNode(1)
 //testQ.right.left = new TreeNode(4)
 
-console.log(isSameTree(testP, testQ));
+console.log(isSameTreeRecurse(testP, testQ));

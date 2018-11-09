@@ -1,11 +1,10 @@
 var findWords = function(board, words) {
     var result = [];
     for (let word of words) {
-        console.log("word: ", word);
-        const startPoint = findStartingPoint(board, word);
-        console.log("startPoint: ", startPoint)
-        if (startPoint === -1) {
-            continue
+        for (let row = 0; row < board.length; row++) {
+            for (let col = 0; col < board[0].length; col++) {
+                
+            }
         }
         let truncated = word.substring(1);
         if (searchAdjacent(board, startPoint, truncated)) {

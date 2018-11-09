@@ -13,7 +13,16 @@ var MyLinkedList = function() {
  * @return {number}
  */
 MyLinkedList.prototype.get = function(index) {
+    if (index < 0 || index >= this.size) {
+        return -1;
+    }
 
+    let currentNode = this.head;
+    let counter = 0;
+    while (counter <= index) {
+        currentNode = currentNode.next;
+    }
+    return currentNode.val;
 };
 
 /**
@@ -115,10 +124,9 @@ MyLinkedList.prototype.deleteAtIndex = function(index) {
 let test = new MyLinkedList();
 test.addAtHead(1);
 test.addAtTail(3);
+test.addAtIndex(1, 2);
 console.log("test: ", test);
 return
-test.addAtIndex(1, 2);
-
 console.log(test.get(1));
 test.deleteAtIndex(1);
 console.log(test);

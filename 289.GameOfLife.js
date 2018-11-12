@@ -1,4 +1,8 @@
 var gameOfLife = function(board) {
+    
+}
+//O(N) space solution
+var gameOfLifeSpce = function(board) {
     let result = new Array(board.length).fill(0).map(() => new Array(board[0].length).fill(0));
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board[0].length; j++) {

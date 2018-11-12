@@ -2,7 +2,24 @@ function ListNode(value) {
     this.val = value;
     this.next = null;
 }
+
 var mergeKLists = function(lists) {
+    console.log(lists);
+    if (lists.length === 0) {
+        return null;
+    } else if (lists.length === 1) {
+        return lists[0];
+    } else if (lists.length === 2) {
+        return merge2Lists(lists[0], lists[1]);
+    } else {
+        let leftHalf = mergeKLists(lists.slice(0, Math.floor(lists.length /2)));
+        let rightHalf = mergeKLists(lists.slice(Math.floor(lists.length /2)));
+        return merge2Lists(rightHalf, leftHalf);
+    }
+}
+
+//simply iterating throu and merge 2 together
+var mergeKLists1 = function(lists) {
     let lastMerge = lists[0];
     
     for (let i = 1; i < lists.length; i++) {
@@ -61,4 +78,4 @@ l2.next.next = new ListNode(4);
 
 let l3 = new ListNode(2);
 l3.next = new ListNode(6);
-console.log(JSON.stringify(mergeKLists([l1, l2, l3])));
+console.log(JSON.stringify(mergeKLists([])));

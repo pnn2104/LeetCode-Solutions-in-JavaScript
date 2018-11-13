@@ -5,19 +5,19 @@ var spiralOrder = function(matrix) {
     let limitDown = matrix.length - 1;   
     let result = [];
     while (limitLeft <= limitRight && limitUp <= limitDown) {
-        let fromLeftCounter = limitLeft;
+        let fromLeftCounter = limitLeft; //from left to right
         while (fromLeftCounter <= limitRight) {
             result.push(matrix[limitUp][fromLeftCounter++]);
         }
         limitUp++;
 
-        let fromUpCounter = limitUp;
+        let fromUpCounter = limitUp; //from top to bottom
         while (fromUpCounter <= limitDown) {
             result.push(matrix[fromUpCounter++][limitRight])
         }
         limitRight--;
 
-        if (limitUp <= limitDown) {
+        if (limitUp <= limitDown) { //from right to left
             let fromRightCounter = limitRight;
             while(fromRightCounter >= limitLeft) {
                 result.push(matrix[limitDown][fromRightCounter--]);
@@ -25,7 +25,7 @@ var spiralOrder = function(matrix) {
             limitDown--;
         }
         
-        if (limitRight <= limitLeft) {
+        if (limitLeft <= limitRight) { //from bottom to top
             let fromBottomCounter = limitDown;
             while(fromBottomCounter >= limitUp) {
                 result.push(matrix[fromBottomCounter--][limitLeft]);
@@ -36,7 +36,5 @@ var spiralOrder = function(matrix) {
     return result;
 };
 
-let test = [[1,2,3,4],
-            [5,6,7,8],
-            [9,10,11,12]]
+let test = [[7],[9],[6]]
 console.log(spiralOrder(test));

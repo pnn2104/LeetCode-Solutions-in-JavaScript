@@ -1,4 +1,26 @@
+//another way to do this 
 var longestConsecutive = function(nums) {
+    let hash = {};
+    for (let num of nums) {
+        hash[num] = true;
+    } 
+    let maxSequence = 0;
+
+    for (let number of nums) {
+        if (hash[number - 1] === undefined) {
+            let currentLength = 1;
+            let currentNum = number;
+            while (hash[currentNum + 1] !== undefined) {
+                currentLength++;
+                currentNum++;
+            }
+            maxSequence = Math.max(maxSequence, currentLength);
+        }
+    }
+    return maxSequence;
+}
+
+var longestConsecutive1 = function(nums) {
     let hash = {};
     for (let num of nums) {
         hash[num] = true;

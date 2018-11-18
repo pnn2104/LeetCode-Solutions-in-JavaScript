@@ -53,3 +53,5 @@ let s = "catsanddog";
 let wordDict = ["cats", "dog", "sand", "and", "cat"];
 
 console.log(wordBreak(s, wordDict));
+
+

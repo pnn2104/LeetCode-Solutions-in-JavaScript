@@ -10,7 +10,7 @@ var numDistinctIslands = function(grid) {
                                     explore(row + 1, col, grid, shiftX, shiftY, shape) +
                                     explore(row, col - 1, grid, shiftX, shiftY, shape) + 
                                     explore(row, col + 1, grid, shiftX, shiftY, shape); //right
-                console.log("calling explore with: ", returnedShape);
+                //console.log("calling explore with: ", returnedShape);
                 return returnedShape;
             } else {
                 return "";

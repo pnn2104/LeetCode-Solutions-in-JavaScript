@@ -3,36 +3,26 @@
 //time limit exceeded for test input that are very large string
 
 var longestPalindrome = function(s) {
-    if (s.length < 2) {
+    if (s === null || s.length < 2) {
         return s;
     }
-    var maxLen = 0;
-    var maxPalin = s[0];
-    for (var i = 0; i < s.length; i++) {
-        var subStr = s[i];
-        for (var j = i + 1; j < s.length; j++) {
-            subStr = subStr.concat(s[j]);
-            if (isPalindrome(subStr) && subStr.length > maxLen) {
-                maxLen = subStr.length
-                maxPalin = subStr;
-            }
+    let left = 0;
+    let right = 0;
+    let dp = new Array(s.length).fill(0).map(each => new Array(s.length).fill(false));
+    for (let j = 1; j < s.length; j++) {
+        for (let i = 0; i < j; i++) {
+            isInnerPalindrome = dp[i + 1][j - 1] || j - i <= 2;
+            if (s[i] === s[j] && isInnerPalindrome) {
+                dp[i][j] = true;
+                if (j - i > right - left) {
+                    left = i;
+                    right = j;
+                }
+            }    
         }
-    } 
-    return maxPalin;
+    }
+    return s.substring(left, right + 1);
 };
 
-
-var isPalindrome = function(str) {
-    var headPointer = 0;
-    var tailPointer = str.length - 1;
-    while (headPointer < tailPointer) {
-        //console.log(str[headPointer], str[tailPointer])
-        if (str[headPointer] !== str[tailPointer]) {
-            //console.log("here");
-            return false;
-        }
-        headPointer++;
-        tailPointer--;
-    }
-    return true;
-}
+let test = "ababs";
+console.log(longestPalindrome(test));

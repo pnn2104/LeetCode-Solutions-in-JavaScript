@@ -5,7 +5,6 @@ var canPermutePalindrome = function(s) {
             set.delete(char);
         } else {
             set.add(char);
-            
         }
     }
     return set.size <= 1;

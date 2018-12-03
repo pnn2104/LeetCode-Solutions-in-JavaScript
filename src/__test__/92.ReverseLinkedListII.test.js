@@ -12,8 +12,7 @@ describe('reverse LinkedList in between tests', () => {
 
     inputOutput.forEach((set) => {
         test(`should return ${set[3]} for inputs - list: ${set[0]}, m: ${set[1]}, n: ${set[2]}`, () => {
-            
-            expect(reverseBetween(JSON.stringify(constructLinkedListFromArr(set[0])))).toBe(JSON.stringify(constructLinkedListFromArr(set[3])));
+            expect(JSON.stringify(reverseBetween(constructLinkedListFromArr(set[0])))).toBe(JSON.stringify(constructLinkedListFromArr(set[3])));
         })
     })
 })

@@ -1,0 +1,22 @@
+{
+  "name": "leetcode",
+  "version": "1.0.0",
+  "description": "my leetcode solutions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pnn2104/LeetCode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pnn2104/LeetCode/issues"
+  },
+  "homepage": "https://github.com/pnn2104/LeetCode#readme",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}

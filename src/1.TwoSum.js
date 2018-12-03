@@ -10,4 +10,4 @@ var twoSum = function(nums, target) {
     return [];
 };
 
-
+module.exports = twoSum;

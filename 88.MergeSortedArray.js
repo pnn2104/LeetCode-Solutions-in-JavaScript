@@ -24,6 +24,7 @@ var merge = function(nums1, m, nums2, n) {
 let nums1 = [1, 2, 3, 4, 5, 7, 0, 0, 0];
 let nums2 = [2, 5, 6];
 
+
 console.log(merge(nums1, 6, nums2, 3))
 
 //[1, 2, 2, 3, 0, 0] --> m = 4

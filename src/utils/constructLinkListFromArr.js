@@ -5,8 +5,9 @@ var constructLinkedListFromArr = function (arr) {
     for (let val of arr) {
         list.addToTail(val);
     }
-    return list.list;
+    return list.head;
 }
 
+let test = [1, 2, 3];
 
 module.exports = constructLinkedListFromArr;

@@ -1,20 +1,18 @@
 var isHappy = function(n) {
     if (n === 0) return false;
-    if (n === 1) return true;
 
     let hash = {};
     let newNum = n;
-    while (true) {
+    while (newNum !== 1) {
         newNum = getNewSum(newNum);
         //return
-        if (newNum === 1) {
-            return true;
-        } else if (hash[newNum]) {
+        if (hash[newNum]) {
             return false;
         } else if (!hash[newNum]){
             hash[newNum] = 1;
         }
     }
+    return true;
 }
 
 function getNewSum(n) {

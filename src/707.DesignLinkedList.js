@@ -1,10 +1,15 @@
 function ListNode(value) {
     this.val = value;
+    this.prev = null;
     this.next = null;
 }
+/**
+ * Initialize your data structure here.
+ */
 var MyLinkedList = function() {
     this.size = 0;
     this.head = null;
+    this.tail = null;    
 };
 
 /**
@@ -13,16 +18,18 @@ var MyLinkedList = function() {
  * @return {number}
  */
 MyLinkedList.prototype.get = function(index) {
-    if (index < 0 || index >= this.size) {
+    if (index >= this.size) {
         return -1;
+        //throw new Error("index exceeded");
+    }
+    let i = 0;
+    let current = this.head;
+    while (i < index) {
+        current = current.next;  
+        i++  
     }
 
-    let currentNode = this.head;
-    let counter = 0;
-    while (counter <= index) {
-        currentNode = currentNode.next;
-    }
-    return currentNode.val;
+    return current.val;
 };
 
 /**
@@ -31,14 +38,16 @@ MyLinkedList.prototype.get = function(index) {
  * @return {void}
  */
 MyLinkedList.prototype.addAtHead = function(val) {
+    this.size++;
     let node = new ListNode(val);
     if (this.head === null) {
         this.head = node;
-    } else {
-        node.next = this.head;
-        this.head = node;
-    }
-    this.size++;
+        this.tail = node;
+        return;
+    } 
+    this.head.prev = node;
+    node.next = this.head;
+    this.head = node;   
 };
 
 /**
@@ -47,17 +56,16 @@ MyLinkedList.prototype.addAtHead = function(val) {
  * @return {void}
  */
 MyLinkedList.prototype.addAtTail = function(val) {
-    let node = new ListNode(val);
     this.size++;
-    if (!this.head) {
+    let node = new ListNode(val);
+    if (this.head === null) {
         this.head = node;
-    } else {
-        let currentNode = this.head;
-        while (currentNode.next !== null) {
-            currentNode = currentNode.next;
-        }
-        currentNode.next = node;
-    }
+        this.tail = node;
+        return;
+    }    
+    this.tail.next = node;
+    node.prev = this.tail;
+    this.tail = node;
 };
 
 /**
@@ -67,27 +75,34 @@ MyLinkedList.prototype.addAtTail = function(val) {
  * @return {void}
  */
 MyLinkedList.prototype.addAtIndex = function(index, val) {
+    if (index > this.size) {
+        return;
+        //throw new Error("not a valid index");
+    } 
+    
     let node = new ListNode(val);
-    this.size++;
-    if (index === this.size) { //add to tail
+    if (index === 0) {
+        this.addAtHead(val); 
+        return;
+    } else if (index === this.size) {
         this.addAtTail(val);
-
-    } else if (index > 0 && index < this.size) {
-        let currentNode = this.head;
-        let counter = 0;
-        let prev = null;
-        while (counter <= index) {
-            if (counter === index) {
-                let temp = currentNode;
-                prev.next = node;
-                node.next = temp;
-                break;
-            }
-            prev = currentNode;
-            currentNode = currentNode.next;
-            counter++;
+        return;
+    } else {
+        let current = this.head;
+        let i = 0;
+        while (i < index - 1) {
+            //console.log("i: ", i);
+            current = current.next;
+            i++;
         }
-    }    
+
+        let temp = current.next;
+        current.next = node;
+        node.prev = current;
+        temp.prev = node;
+        node.next = temp;
+    }
+    this.size++;
 };
 
 /**
@@ -96,38 +111,32 @@ MyLinkedList.prototype.addAtIndex = function(index, val) {
  * @return {void}
  */
 MyLinkedList.prototype.deleteAtIndex = function(index) {
-    if (index < 0 || index >= this.size) {
+    if (index >= this.size) {
         return;
+        //throw new Error ("not a valid index");
+    } else if (index === 0) { //delete head
+        if (this.size === 1) {
+            this.head = null;
+            this.tail = null;
+        } else if (this.size > 1) {
+            this.head = this.head.next;
+            this.head.prev = null;
+        }
+    } else if (index === this.size - 1) { //delete tail
+        this.tail = this.tail.prev;
+        this.tail.next = null;
+    } else {
+        let i = 0;
+        let current = this.head;
+        while (i < index) {
+            current = current.next;
+            i++;
+        }
+        let prev = current.prev;
+        let next = current.next;
+        prev.next = next;
+        next.prev = prev;
+        
     }
     this.size--;
-    if (index === 0) {
-        this.head = this.head.next;
-        return
-    } else {
-        let currentNode = this.head;
-        let counter = 0;
-        let prev = null;
-        while(counter <= index) {
-            if (counter === index) {
-                prev.next = currentNode.next;
-
-                break;
-            }
-            prev = currentNode;
-            currentNode = currentNode.next;
-            counter++;
-        }
-    }
 };
-
-
-let test = new MyLinkedList();
-test.addAtHead(1);
-test.addAtTail(3);
-test.addAtIndex(1, 2);
-console.log("test: ", test);
-return
-console.log(test.get(1));
-test.deleteAtIndex(1);
-console.log(test);
-console.log(test.get(1));

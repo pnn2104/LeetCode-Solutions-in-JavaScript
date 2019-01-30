@@ -1,18 +1,21 @@
 var findMedianOfArrayWithBinarySearch = function(nums1, nums2) {
     if (nums1.length < nums2.length) {
-        var x = nums1;
-        var y = nums2;
+        var x = nums2;
+        var y = nums1;
     } else {
-        x = nums2;
-        y = nums1;
+        x = nums1;
+        y = nums2;
     }
 
     var startX = 0;
     var endX = x.length;
+    console.log(endX);
     
     while (startX <= endX) {
         var midX = Math.floor((startX + endX) / 2);
+        console.log("midX: ", midX);
         var midY = Math.floor(((x.length + y.length + 1) / 2)) - midX;
+        console.log("midY: ", midY);
         var x_left = x[midX - 1] ? x[midX - 1] : -Infinity;
         var y_left = y[midY - 1] ? y[midY - 1] : -Infinity;
         var x_right = x[midX] ? x[midX] : Infinity;
@@ -58,8 +61,8 @@ var findMedianOfArray = function(arr) {
 
 //var nums1 = [1, 3];
 //var nums2 = [2];
-var nums1 = [23, 26, 31, 33];
-var nums2 = [3, 5, 7, 9, 11, 16];
+var nums1 = [1, 2, 7, 7, 8];
+var nums2 = [1, 6, 10];
 /*
 23                26, 31, 33
 3, 5, 7, 9           11, 16

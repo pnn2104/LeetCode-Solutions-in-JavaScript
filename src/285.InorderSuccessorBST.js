@@ -5,6 +5,9 @@ function TreeNode(value) {
 }
 
 var inorderSuccessor = function(root, p) {
+    if (!root || !p) {
+        return null;
+    }
     let currentNode = root;
     let lastLeft = null;
     while (currentNode) {
@@ -23,30 +26,22 @@ var inorderSuccessor = function(root, p) {
     }   
 }
 
-function findSmallest(node) {
-    let current = node;
-    let smallest = current.val;
-    while (current) {
-        if (current.left) {
-            smallest = current.left.val;
-        }
+function findSmallest(root) {
+    let current = root;
+    
+    while (current.left) {
         current = current.left;
     }
-    return smallest;
+    
+    return current;
 }
 
 
-//let test1 = new TreeNode(0);
-// let test = new TreeNode(5);
-// test.left = new TreeNode(3);
-// test.right = new TreeNode(6);
-// test.left.left = new TreeNode(2);
-// test.left.right = new TreeNode(4);
-// test.left.left.left = new TreeNode(1);
 let test = new TreeNode(2);
+test.left = new TreeNode(1);
 test.right = new TreeNode(3);
 
-console.log(inorderSuccessor(test, new TreeNode(2)));
+console.log(inorderSuccessor(test, test.left));
 
 
 
